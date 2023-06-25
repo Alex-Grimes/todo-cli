@@ -4,6 +4,16 @@ fn main() {
     let action = std::env::args().nth(1).expect("Please specify an action");
     let item = std::env::args().nth(2).expect("Please specify an item");
 
+    let mut todo = Todo {
+        map: HashMap::new(),
+    };
+    if action == "add" {
+        todo.insert(item);
+        match todo.save() {
+            Ok(_) => println!("Saved!"),
+            Err(err) => println!("Error: {}", err),
+        }
+    }
     println!("{:?}, {:?}", action, item);
 }
 
