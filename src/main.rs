@@ -1,10 +1,10 @@
 use std::collections::HashMap;
 
 fn main() {
-    let action = std::env::args().nth(1).expect("Please specify an action");
-    let item = std::env::args().nth(2).expect("Please specify an item");
+    let action: String = std::env::args().nth(1).expect("Please specify an action");
+    let item: String = std::env::args().nth(2).expect("Please specify an item");
 
-    let mut todo = Todo::new().expect("Initialisation of db failed");
+    let mut todo: Todo = Todo::new().expect("Initialisation of db failed");
 
     if action == "add" {
         todo.insert(item);
@@ -29,7 +29,7 @@ struct Todo {
 
 impl Todo {
     fn new() -> Result<Todo, std::io::Error> {
-        let f = std::fs::OpenOptions::new()
+        let f: std::fs::File = std::fs::OpenOptions::new()
             .read(true)
             .write(true)
             .create(true)
@@ -49,7 +49,7 @@ impl Todo {
     }
 
     fn save(self) -> Result<(), Box<dyn std::error::Error>> {
-        let f = std::fs::OpenOptions::new()
+        let f: std::fs::File = std::fs::OpenOptions::new()
             .write(true)
             .create(true)
             .open("db.json")?;
